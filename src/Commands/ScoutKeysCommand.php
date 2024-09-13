@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace ChrisReedIO\ScoutKeys\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class ScoutKeysCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-scout-keys';
 
     public $description = 'My command';
 
