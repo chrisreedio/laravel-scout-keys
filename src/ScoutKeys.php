@@ -30,7 +30,7 @@ class ScoutKeys
         return static::$middleware;
     }
 
-    public function keyRoute(?string $path = 'search/key'): \Illuminate\Routing\Route
+    public static function getRoute(?string $path = 'search/key'): \Illuminate\Routing\Route
     {
         return Route::middleware(ScoutKeys::getMiddleware())
             ->get($path, ShowSearchKeyController::class)

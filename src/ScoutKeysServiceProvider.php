@@ -2,6 +2,8 @@
 
 namespace ChrisReedIO\ScoutKeys;
 
+use ChrisReedIO\ScoutKeys\Commands\DeleteExpiredSearchKeys;
+use ChrisReedIO\ScoutKeys\Commands\RevokeUserSearchKeys;
 use Laravel\Scout\Console\FlushCommand;
 use Laravel\Scout\Console\ImportCommand;
 use Spatie\LaravelPackageTools\Package;
@@ -24,12 +26,16 @@ class ScoutKeysServiceProvider extends PackageServiceProvider
             // ->hasViews()
             // ->hasRoutes('../routes/web')
             ->hasMigration('create_search_keys_table')
-            ->hasCommand(ScoutKeysCommand::class);
+            ->hasCommands([
+                // ScoutKeysCommand::class,
+                DeleteExpiredSearchKeys::class,
+                RevokeUserSearchKeys::class,
+            ]);
     }
 
     public function packageBooted(): void
     {
-        // Register the SecureMeilisearch Commands if configured to do so
+        // Register the Internal Commands if configured to do so
         if (config('scout-keys.register_commands', true)) {
             $this->commands([
                 FlushCommand::class,

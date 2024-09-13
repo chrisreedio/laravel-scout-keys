@@ -61,7 +61,7 @@ class ShowSearchKeyController extends Controller
         }
 
         return response()->json([
-            'searchKey' => $user->search_key->key,
+            'searchKey' => $user->search_key->scoped_key,
             // 'searchKey' => $user->search_key->tenant_token,
         ]);
 

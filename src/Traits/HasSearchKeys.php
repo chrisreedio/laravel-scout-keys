@@ -5,6 +5,7 @@ namespace ChrisReedIO\ScoutKeys\Traits;
 use ChrisReedIO\ScoutKeys\Models\SearchKey;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -16,9 +17,13 @@ trait HasSearchKeys
     /**
      * Gets the user's search keys.
      */
-    public function searchKeys(): HasMany
+    // public function searchKeys(): HasMany
+    // {
+    //     return $this->hasMany(SearchKey::class);
+    // }
+    public function searchKeys(): MorphMany
     {
-        return $this->hasMany(SearchKey::class);
+        return $this->morphMany(SearchKey::class, 'keyable');
     }
 
     /**

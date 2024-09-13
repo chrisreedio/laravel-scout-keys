@@ -11,13 +11,18 @@ return new class extends Migration
     {
         Schema::create('search_keys', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->uuid()->unique();
+            $table->morphs('keyable');
             $table->string('key')->nullable();
-            $table->text('tenant_token')->nullable();
+            $table->string('engine');
+            $table->bigInteger('engine_key_id')->nullable();
+            $table->text('scoped_key')->nullable();
             $table->timestamp('expires_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
+
+            // Add indexes for the keyable morph
+            $table->index(['keyable_id', 'keyable_type']);
         });
     }
 

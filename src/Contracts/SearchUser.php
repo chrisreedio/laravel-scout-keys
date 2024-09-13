@@ -4,6 +4,7 @@ namespace ChrisReedIO\ScoutKeys\Contracts;
 
 use ChrisReedIO\ScoutKeys\Models\SearchKey;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * Interface SearchUser
@@ -12,7 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 interface SearchUser
 {
-    public function searchKeys(): HasMany;
+    // public function searchKeys(): HasMany;
+    public function searchKeys(): MorphMany;
 
     public function getSearchKeyAttribute(): ?SearchKey;
 
