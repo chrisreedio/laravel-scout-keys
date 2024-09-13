@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Laravel\Scout\Engines\MeilisearchEngine;
 use Meilisearch\Exceptions\ApiException;
+
 use function app;
 use function array_keys;
 use function config;
@@ -15,7 +16,6 @@ use function is_null;
 
 class MeilisearchAdapter implements ScoutEngine
 {
-
     public static function generateScopedKey(SearchKey $key): ?string
     {
         if (! is_null($key->key)) {
@@ -26,7 +26,6 @@ class MeilisearchAdapter implements ScoutEngine
 
         /** @var MeilisearchEngine $engine */
         $engine = app(MeilisearchEngine::class);
-
 
         $key->uuid ??= (string) Str::uuid();
         $expiresAt = $key->expires_at->toDateTime();

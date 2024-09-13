@@ -2,9 +2,9 @@
 
 namespace ChrisReedIO\ScoutKeys\Tests;
 
+use ChrisReedIO\ScoutKeys\ScoutKeysServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use ChrisReedIO\ScoutKeys\ScoutKeysServiceProvider;
 
 class TestCase extends Orchestra
 {

@@ -5,15 +5,16 @@ namespace ChrisReedIO\ScoutKeys;
 use ChrisReedIO\ScoutKeys\Http\Controllers\ShowSearchKeyController;
 use Closure;
 use Illuminate\Support\Facades\Route;
+
 use function call_user_func;
 use function is_array;
 
 class ScoutKeys
 {
     /** @var array<string>|Closure */
-    protected static array | Closure $middleware = ['web'];
+    protected static array|Closure $middleware = ['web'];
 
-    public static function middleware(string | array | Closure $middleware): void
+    public static function middleware(string|array|Closure $middleware): void
     {
         if (! is_array($middleware) && ! $middleware instanceof Closure) {
             $middleware = [$middleware];

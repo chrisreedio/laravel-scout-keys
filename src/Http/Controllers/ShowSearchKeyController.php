@@ -52,7 +52,7 @@ class ShowSearchKeyController extends Controller
         if (is_null($user->search_key->key)) {
             dd('there');
             if (is_null($user->search_key->request())) {
-                Log::error('User ' . $user->id . ' tried to request a search key but failed.');
+                Log::error('User '.$user->id.' tried to request a search key but failed.');
 
                 return response()->json([
                     'message' => 'Failed to acquire a search key',

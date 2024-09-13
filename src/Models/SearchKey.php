@@ -6,7 +6,6 @@ use App\Models\User;
 use ChrisReedIO\ScoutKeys\Contracts\ScoutEngine;
 use ChrisReedIO\ScoutKeys\Contracts\SearchUser;
 use ChrisReedIO\ScoutKeys\Enums\ScoutEngineType;
-use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Prunable;
@@ -14,21 +13,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Laravel\Scout\Engines\MeilisearchEngine;
-use Meilisearch\Exceptions\ApiException;
 
-use function app;
-use function array_keys;
-use function is_null;
 use function now;
 
 /**
  * Class SearchKey
  *
  * @property int $id
- * // * @property int $user_id
+ *                   // * @property int $user_id
  * @property ScoutEngineType $engine
  * @property int $engine_key_id
  * @property string $keyable_type

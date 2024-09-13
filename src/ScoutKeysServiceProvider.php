@@ -4,11 +4,12 @@ namespace ChrisReedIO\ScoutKeys;
 
 use ChrisReedIO\ScoutKeys\Commands\DeleteExpiredSearchKeys;
 use ChrisReedIO\ScoutKeys\Commands\RevokeUserSearchKeys;
+use ChrisReedIO\ScoutKeys\Commands\ScoutKeysCommand;
 use Laravel\Scout\Console\FlushCommand;
 use Laravel\Scout\Console\ImportCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use ChrisReedIO\ScoutKeys\Commands\ScoutKeysCommand;
+
 use function config;
 
 class ScoutKeysServiceProvider extends PackageServiceProvider

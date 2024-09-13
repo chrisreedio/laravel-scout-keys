@@ -41,9 +41,9 @@ class RevokeUserSearchKeys extends Command
         $keys->each(function ($key) {
             // $this->info('Revoking search key ' . $key->id);
             if ($key->revoke()) {
-                $this->info('Search key ' . $key->id . ' revoked.');
+                $this->info('Search key '.$key->id.' revoked.');
             } else {
-                $this->error('Failed to revoke search key ' . $key->id);
+                $this->error('Failed to revoke search key '.$key->id);
             }
         });
 

@@ -6,12 +6,8 @@ use ChrisReedIO\ScoutKeys\Contracts\ScoutEngine;
 use ChrisReedIO\ScoutKeys\Models\SearchKey;
 use Exception;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
-use Laravel\Scout\EngineManager;
-use Laravel\Scout\Engines\MeilisearchEngine;
-use Laravel\Scout\Engines\TypesenseEngine;
 use Typesense\Client as Typesense;
-use function app;
+
 use function array_keys;
 use function array_map;
 use function config;
@@ -20,7 +16,6 @@ use function is_null;
 
 class TypesenseAdapter implements ScoutEngine
 {
-
     public static function generateScopedKey(SearchKey $key): ?string
     {
         if (! is_null($key->scoped_key)) {
@@ -76,7 +71,7 @@ class TypesenseAdapter implements ScoutEngine
         try {
             $results = $typesense->keys[$key->engine_key_id]->delete();
             // if (empty($results)) {
-                // Log::error('Failed to revoke search key. Already Deleted?', ['key' => $key]);
+            // Log::error('Failed to revoke search key. Already Deleted?', ['key' => $key]);
             // }
 
             $key->delete();
