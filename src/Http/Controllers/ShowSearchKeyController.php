@@ -25,7 +25,7 @@ class ShowSearchKeyController extends Controller
             abort(401);
         }
 
-        /** @var Model|SearchUser $user */
+        /** @var SearchUser $user */
         $user = auth()->user();
 
         // Check to see if the user implements the SearchUser interface
@@ -43,16 +43,18 @@ class ShowSearchKeyController extends Controller
         // }
         // dd($user->search_key->toArray());
 
-        if (is_null($user->searchKey)) {
-            dd('here');
+        if ($user->searchKey()->doesntExist()) {
             $key = $user->generateSearchKey();
             $user->refresh();
         }
 
-        if (is_null($user->search_key->key)) {
-            dd('there');
-            if (is_null($user->search_key->request())) {
-                Log::error('User '.$user->id.' tried to request a search key but failed.');
+        /** @var SearchKey $searchKey */
+        $searchKey = $user->searchKey()->first();
+
+        if (is_null($searchKey->scoped_key)) {
+            // dd('there');
+            if (is_null($searchKey->request())) {
+                Log::error('User '.$user->getKey().' tried to request a search key but failed.');
 
                 return response()->json([
                     'message' => 'Failed to acquire a search key',
@@ -61,7 +63,7 @@ class ShowSearchKeyController extends Controller
         }
 
         return response()->json([
-            'searchKey' => $user->search_key->scoped_key,
+            'searchKey' => $searchKey->scoped_key,
             // 'searchKey' => $user->search_key->tenant_token,
         ]);
 
