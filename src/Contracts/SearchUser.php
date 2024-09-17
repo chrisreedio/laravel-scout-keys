@@ -10,13 +10,16 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
  * Interface SearchUser
+ *
  * @mixin Model
+ *
  * @property-read SearchKey|null $searchKey
  */
 interface SearchUser
 {
     // public function searchKeys(): HasMany;
     public function searchKeys(): MorphMany;
+
     public function searchKey(): MorphOne;
 
     // public function getSearchKeyAttribute(): ?SearchKey;
