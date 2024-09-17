@@ -67,7 +67,7 @@ class SearchKey extends Model
 
         static::creating(function (SearchKey $key) {
             $key->uuid = $key->uuid ?: (string) Str::uuid();
-            $keyLifeMinutes = config('scout-keys.key.lifetime');
+            $keyLifeMinutes = (int) config('scout-keys.key.lifetime');
             $key->expires_at = now()->addMinutes($keyLifeMinutes);
             // Engine Detection
             $key->engine = ScoutEngineType::detect();
