@@ -4,7 +4,6 @@ namespace ChrisReedIO\ScoutKeys\Http\Controllers;
 
 use ChrisReedIO\ScoutKeys\Contracts\SearchUser;
 use ChrisReedIO\ScoutKeys\Models\SearchKey;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
