@@ -1,11 +1,16 @@
-# Provides user level tenant tokens / scoped search keys.
+# Laravel Scout User Keys/Tokens
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/chrisreedio/laravel-scout-keys.svg?style=flat-square)](https://packagist.org/packages/chrisreedio/laravel-scout-keys)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/chrisreedio/laravel-scout-keys/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/chrisreedio/laravel-scout-keys/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/chrisreedio/laravel-scout-keys/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/chrisreedio/laravel-scout-keys/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/chrisreedio/laravel-scout-keys.svg?style=flat-square)](https://packagist.org/packages/chrisreedio/laravel-scout-keys)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+This package provides user level tenant tokens / scoped search keys for Laravel Scout.
+
+The current implementation supports the Meilisearch and Typesense drivers.
+
+### TODO
+- [ ] Add support for runtime configuration of generated key facets/filtered attributes
 
 ## Installation
 
@@ -32,7 +37,17 @@ This is the contents of the published config file:
 
 ```php
 return [
-    // TODO
+     /**
+     * Whether to register the Scout Indexing commands for use via web.
+     */
+    'register_commands' => false,
+
+    'key' => [
+        /**
+         * The number of minutes a search key should be valid for.
+         */
+        'lifetime' => env('SCOUT_KEY_EXPIRATION', 60 * 12),
+    ],
 ];
 ```
 
@@ -47,6 +62,18 @@ class User extends Authenticatable SearchUser
     use HasFactory, HasSearchKeys;
     // ...
 }
+```
+
+Finally, add the following to your `web.php` routes file:
+
+```php
+ScoutKeys::getRoute();
+```
+
+If you'd like to change the default path of `/search/key`, you may pass the desired path as the first argument to the `getRoute` method.
+
+```php
+ScoutKeys::getRoute('dashboard/search/key');
 ```
 
 ## Testing
