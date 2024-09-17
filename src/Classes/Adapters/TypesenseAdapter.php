@@ -8,9 +8,9 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 use JsonException;
 use Typesense\Client as Typesense;
-
 use Typesense\Exceptions\ConfigError;
 use Typesense\Exceptions\TypesenseClientError;
+
 use function array_keys;
 use function array_map;
 use function config;
