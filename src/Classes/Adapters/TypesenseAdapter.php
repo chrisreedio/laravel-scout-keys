@@ -58,7 +58,7 @@ class TypesenseAdapter implements ScoutEngine
         // dd($engineManager->getDefaultDriver());
 
         $keyOptions = [
-            'filter_by' => $key->keyable_type.'_id:'.$key->keyable_id,
+            // 'filter_by' => $key->keyable_type.'_id:'.$key->keyable_id,
             'exclude_fields' => ['password'],
         ];
 
