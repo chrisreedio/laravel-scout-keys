@@ -6,8 +6,11 @@ use ChrisReedIO\ScoutKeys\Contracts\ScoutEngine;
 use ChrisReedIO\ScoutKeys\Models\SearchKey;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use JsonException;
 use Typesense\Client as Typesense;
 
+use Typesense\Exceptions\ConfigError;
+use Typesense\Exceptions\TypesenseClientError;
 use function array_keys;
 use function array_map;
 use function config;
@@ -16,6 +19,12 @@ use function is_null;
 
 class TypesenseAdapter implements ScoutEngine
 {
+    /**
+     * @throws \Http\Client\Exception
+     * @throws TypesenseClientError
+     * @throws ConfigError
+     * @throws JsonException
+     */
     public static function generateScopedKey(SearchKey $key): ?string
     {
         if (! is_null($key->scoped_key)) {
@@ -29,6 +38,10 @@ class TypesenseAdapter implements ScoutEngine
         $indexes = array_keys(config('scout.typesense.model-settings'));
         // Remap the class names to index names
         $indexes = array_map(fn ($index) => (new $index)->searchableAs(), $indexes);
+
+        if (empty($indexes)) {
+            throw new ConfigError('No configured Typesense collections found in the Scout Config', 404);
+        }
 
         // Get the typesense client
         $typesense = new Typesense(config('scout.typesense.client-settings'));
