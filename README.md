@@ -32,20 +32,21 @@ This is the contents of the published config file:
 
 ```php
 return [
+    // TODO
 ];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-scout-keys-views"
 ```
 
 ## Usage
 
+Add the `SearchUser` interface and `HasSearchKeys` trait to your `User` model(s).
+
+Example:
 ```php
-$scoutKeys = new ChrisReedIO\ScoutKeys();
-echo $scoutKeys->echoPhrase('Hello, ChrisReedIO!');
+class User extends Authenticatable SearchUser
+{
+    use HasFactory, HasSearchKeys;
+    // ...
+}
 ```
 
 ## Testing
