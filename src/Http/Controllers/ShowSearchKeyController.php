@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use function abort;
 use function auth;
 use function is_null;
+use function now;
 use function response;
 
 class ShowSearchKeyController extends Controller
@@ -40,18 +41,16 @@ class ShowSearchKeyController extends Controller
         // if (!$user->can('appointments.dashboard')) {
         //     abort(403);
         // }
-        // dd($user->search_key->toArray());
 
-        if ($user->searchKey()->doesntExist()) {
-            $key = $user->generateSearchKey();
+        /** @var ?SearchKey $searchKey */
+        $searchKey = $user->searchKey()->where('expires_at', '>', now())->first();
+
+        if ($searchKey === null) {
+            $searchKey = $user->generateSearchKey();
             $user->refresh();
         }
 
-        /** @var SearchKey $searchKey */
-        $searchKey = $user->searchKey()->first();
-
-        if (is_null($searchKey->scoped_key)) {
-            // dd('there');
+        if (is_null($searchKey) || is_null($searchKey->scoped_key)) {
             if (is_null($searchKey->request())) {
                 Log::error('User '.$user->getKey().' tried to request a search key but failed.');
 
@@ -63,7 +62,6 @@ class ShowSearchKeyController extends Controller
 
         return response()->json([
             'searchKey' => $searchKey->scoped_key,
-            // 'searchKey' => $user->search_key->tenant_token,
         ]);
 
     }
