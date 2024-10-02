@@ -25,4 +25,6 @@ interface SearchUser
     // public function getSearchKeyAttribute(): ?SearchKey;
 
     public function generateSearchKey(): ?SearchKey;
+
+    public function getSearchRules(): array;
 }

@@ -3,6 +3,7 @@
 namespace ChrisReedIO\ScoutKeys\Classes\Adapters;
 
 use ChrisReedIO\ScoutKeys\Contracts\ScoutEngine;
+use ChrisReedIO\ScoutKeys\Contracts\SearchUser;
 use ChrisReedIO\ScoutKeys\Models\SearchKey;
 use Exception;
 use Illuminate\Support\Facades\Log;
@@ -57,10 +58,13 @@ class TypesenseAdapter implements ScoutEngine
         $key->key = $result['value'];
         // dd($engineManager->getDefaultDriver());
 
-        $keyOptions = [
-            // 'filter_by' => $key->keyable_type.'_id:'.$key->keyable_id,
-            'exclude_fields' => ['password'],
-        ];
+        // $keyOptions = [
+        //     // 'filter_by' => $key->keyable_type.'_id:'.$key->keyable_id,
+        //     'exclude_fields' => ['password'],
+        // ];
+        /** @var SearchUser $user */
+        $user = $key->keyable;
+        $keyOptions = $user->getSearchRules();
 
         // Local Scoped Key Generation
         $key->scoped_key = $typesense->keys->generateScopedSearchKey($key->key, $keyOptions);

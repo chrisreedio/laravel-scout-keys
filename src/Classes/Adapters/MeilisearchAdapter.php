@@ -3,6 +3,7 @@
 namespace ChrisReedIO\ScoutKeys\Classes\Adapters;
 
 use ChrisReedIO\ScoutKeys\Contracts\ScoutEngine;
+use ChrisReedIO\ScoutKeys\Contracts\SearchUser;
 use ChrisReedIO\ScoutKeys\Models\SearchKey;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -54,15 +55,18 @@ class MeilisearchAdapter implements ScoutEngine
 
         // Construct search rules so that users with the 'special.view' permission have no filters.
         // Users without this role will have a filter of 'special = false'.
-        $searchRules = (object) [
-            // TODO: Special filter feature.
-            //     Model::searchableIndex() => (object) [
-            //         'filter' => $this->user->cannot('special.view') ? 'special = false' : '',
-            //     ],
-        ];
+        // $searchRules = (object) [
+        //     // TODO: Special filter feature.
+        //     //     Model::searchableIndex() => (object) [
+        //     //         'filter' => $this->user->cannot('special.view') ? 'special = false' : '',
+        //     //     ],
+        // ];
+        /** @var SearchUser $user */
+        $user = $key->keyable;
+        $keyOptions = $user->getSearchRules();
 
         /** @phpstan-ignore-next-line */
-        $key->scoped_key = $engine->generateTenantToken($key->uuid, $searchRules, $tenantOptions);
+        $key->scoped_key = $engine->generateTenantToken($key->uuid, $keyOptions, $tenantOptions);
         $key->save();
 
         return $key->scoped_key;

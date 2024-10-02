@@ -56,4 +56,11 @@ trait HasSearchKeys
             return $key;
         });
     }
+
+    public function getSearchRules(): array
+    {
+        return [
+            // Extend this method to return the rules for the search key
+        ];
+    }
 }
