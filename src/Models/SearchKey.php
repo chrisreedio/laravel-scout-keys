@@ -73,9 +73,13 @@ class SearchKey extends Model
             $key->engine = ScoutEngineType::detect();
         });
 
-        // static::deleting(function (SearchKey $key) {
-        //     $key->revoke();
-        // });
+        static::deleting(function (SearchKey $key) {
+            try {
+                $key->revoke();
+            } catch (\Throwable $e) {
+                // Log::error('Failed to revoke search key.', ['key' => $key, 'error' => $e->getMessage()]);
+            }
+        });
     }
 
     //region Relationships
