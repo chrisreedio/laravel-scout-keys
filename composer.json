@@ -22,7 +22,7 @@
         "laravel/scout": "^10.11",
         "meilisearch/meilisearch-php": "^1.10",
         "spatie/laravel-package-tools": "^1.16",
-        "typesense/typesense-php": "^4.9"
+        "typesense/typesense-php": "^5.0"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
